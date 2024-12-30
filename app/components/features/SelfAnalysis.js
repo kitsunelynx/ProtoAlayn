@@ -62,7 +62,7 @@ export default function SelfAnalysis() {
               <div 
                 className={`max-w-[80%] p-4 rounded-2xl shadow-sm ${
                   message.isBot 
-                    ? 'bg-white border border-gray-100' 
+                    ? 'bg-white text-black border border-gray-100' 
                     : 'bg-blue-600 text-white'
                 }`}
               >
@@ -82,7 +82,7 @@ export default function SelfAnalysis() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
-              className="flex-1 p-3 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="flex-1 text-black p-3 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
             />
             <motion.button
               type="submit"

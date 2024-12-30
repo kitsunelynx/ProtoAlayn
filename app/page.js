@@ -6,7 +6,7 @@ import FeatureCard from './components/FeatureCard';
 import TeleHealth from './components/features/TeleHealth';
 import SelfAnalysis from './components/features/SelfAnalysis';
 import AlaynMind from './components/features/AlaynMind';
-import { FaVideo, FaChartLine, FaBrain } from 'react-icons/fa';
+import { FaVideo, FaChartLine, FaBrain, FaArrowLeft } from 'react-icons/fa';
 
 function MainContent() {
   const { currentView, navigate } = useNavigation();
@@ -26,21 +26,21 @@ function MainContent() {
       id: 'telehealth',
       title: "Telehealth Services",
       description: "Connect with licensed therapists through secure video sessions.",
-      icon: <FaVideo className="w-6 h-6 text-white/80" />,
+      icon: <FaVideo className="w-5 h-5 text-white/80" />,
       delay: 0.2
     },
     {
       id: 'selfanalysis',
       title: "Self Analysis",
       description: "Track your mental well-being with AI-powered tools.",
-      icon: <FaChartLine className="w-6 h-6 text-white/80" />,
+      icon: <FaChartLine className="w-5 h-5 text-white/80" />,
       delay: 0.4
     },
     {
       id: 'alaynmind',
       title: "Alayn Your Mind",
       description: "Discover curated resources for mental wellness.",
-      icon: <FaBrain className="w-6 h-6 text-white/80" />,
+      icon: <FaBrain className="w-5 h-5 text-white/80" />,
       delay: 0.6
     }
   ];
@@ -55,20 +55,44 @@ function MainContent() {
         return <AlaynMind />;
       default:
         return (
-          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4 md:p-8">
-            {features.map((feature) => (
-              <motion.div
-                key={feature.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: feature.delay }}
-                onClick={() => navigate(feature.id)}
-                className="transform hover:scale-105 transition-transform duration-300"
+          <div className="max-w-6xl mx-auto px-4">
+            {/* Header for the features section */}
+            <div className="flex justify-left mb-8 flex-col space-y-2">
+              <button 
+                onClick={() => navigate('home')} 
+                className="text-white hover:underline flex items-center"
               >
-                <FeatureCard {...feature} />
+                <FaArrowLeft className="mr-2" /> Back
+              </button>
+              </div>
+              <h2 className="text-lg text-white font-bold">Choose your Service</h2>
+            
+            
+            <motion.div 
+              className="flex justify-center items-center"
+              style={{ minHeight: '70vh' }} // Ensures vertical centering
+            >
+              <motion.div 
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+              >
+                {features.map((feature) => (
+                  <motion.div
+                    key={feature.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: feature.delay }}
+                    onClick={() => navigate(feature.id)}
+                    className="transform hover:scale-102 transition-transform duration-300"
+                  >
+                    <FeatureCard {...feature} />
+                  </motion.div>
+                ))}
               </motion.div>
-            ))}
-          </motion.div>
+            </motion.div>
+          </div>
         );
     }
   };
@@ -102,23 +126,23 @@ function MainContent() {
           exit={{ opacity: 0 }}
         >
           {currentView === 'home' ? (
-            <div className="flex flex-col items-center justify-center min-h-screen p-4 md:p-8">
+            <div className="flex flex-col items-center justify-center min-h-screen p-4">
               <motion.div
-                className="text-center space-y-6 md:space-y-8"
+                className="text-center space-y-4 sm:space-y-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-white animate-shine">
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-white animate-shine">
                   Alayn
                 </h1>
-                <p className="text-base md:text-lg text-gray-200 max-w-lg mx-auto">
+                <p className="text-sm sm:text-base md:text-lg text-gray-200 max-w-lg mx-auto">
                   Your journey to mental wellness begins here
                 </p>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-6 md:px-8 py-3 bg-white bg-opacity-10 backdrop-blur-sm text-white rounded-full font-semibold shadow-lg border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300"
+                  className="px-6 py-2.5 sm:px-8 sm:py-3 bg-white bg-opacity-10 backdrop-blur-sm text-white rounded-full text-sm sm:text-base font-semibold shadow-lg border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300"
                   onClick={() => navigate('features')}
                 >
                   Get Started
@@ -139,12 +163,8 @@ function MainContent() {
         }
 
         @keyframes shine {
-          from {
-            background-position: 200% center;
-          }
-          to {
-            background-position: -200% center;
-          }
+          from { background-position: 200% center; }
+          to { background-position: -200% center; }
         }
 
         .animate-shine {

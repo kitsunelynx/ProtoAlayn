@@ -19,3 +19,24 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.space-bg {
+  background: linear-gradient(to bottom, #1a1a2e, #16213e, #1f4287);
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px, 30px 30px;
+  background-position: 0 0, 25px 25px;
+}
+
+.telehealth-bg {
+  background: linear-gradient(135deg, #2193b0, #6dd5ed);
+}
+
+.analysis-bg {
+  background: linear-gradient(135deg, #E3FDF5, #FFE6FA);
+}
+
+.alayn-mind-bg {
+  background: linear-gradient(135deg, #8B5CF6, #D946EF);
+}

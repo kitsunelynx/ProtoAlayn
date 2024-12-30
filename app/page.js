@@ -2,10 +2,11 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { NavigationProvider, useNavigation } from './components/NavigationContext';
-import { FaVideo, FaChartLine, FaBrain } from 'react-icons/fa';
+import { FaVideo, FaChartLine, FaBrain, FaSmile, FaUserCircle } from 'react-icons/fa';
 import TeleHealth from './components/features/TeleHealth';
 import SelfAnalysis from './components/features/SelfAnalysis';
 import AlaynMind from './components/features/AlaynMind';
+import MoodCheckIn from './components/features/MoodCheckIn';
 
 const menuOptions = [
   {
@@ -16,18 +17,25 @@ const menuOptions = [
     icon: <FaVideo className="w-5 h-5 text-white/80" />
   },
   {
-    id: 'selfanalysis',
-    title: 'Self-Analysis',
-    description: 'Track your mood and mental well-being journey',
-    gradient: 'from-blue-500 to-purple-500',
-    icon: <FaChartLine className="w-5 h-5 text-white/80" />
-  },
-  {
     id: 'alaynmind',
     title: 'Alayn-Your-Mind',
     description: 'AI-powered mental health companion',
     gradient: 'from-purple-400 to-blue-400',
     icon: <FaBrain className="w-5 h-5 text-white/80" />
+  },
+  {
+    id: 'moodcheckin',
+    title: 'Mood CheckIn',
+    description: 'Daily mood check-in to track your feelings',
+    gradient: 'from-green-400 to-blue-500',
+    icon: <FaSmile className="w-5 h-5 text-white/80" />
+  },
+  {
+    id: 'personalityanalysis',
+    title: 'Personality Analysis',
+    description: 'Analyze your personality traits and tendencies',
+    gradient: 'from-red-400 to-yellow-500',
+    icon: <FaUserCircle className="w-5 h-5 text-white/80" />
   }
 ];
 
@@ -58,6 +66,10 @@ function MainContent() {
         return <SelfAnalysis />;
       case 'alaynmind':
         return <AlaynMind />;
+      case 'moodcheckin':
+        return <MoodCheckIn />;
+      case 'personalityanalysis':
+        return <SelfAnalysis />;
       case 'features':
         return (
           <motion.div

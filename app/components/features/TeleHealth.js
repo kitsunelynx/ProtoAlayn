@@ -53,18 +53,23 @@ export default function TeleHealth() {
           <motion.div 
             key={index}
             whileHover={{ scale: 1.02 }}
-            className="bg-white/10 p-4 rounded-lg border border-blue-400 overflow-hidden"
+            className="card-gradient p-6 rounded-xl shadow-lg"
           >
             <div className="flex justify-between items-center mb-4 cursor-pointer" onClick={() => toggleCard(index)}>
               <div>
-                <h3 className="text-lg font-semibold">{doctor.name}</h3>
-                <p className="text-sm text-gray-300"><FaUser className="inline mr-1" /> {doctor.speciality}</p>
+                <h3 className="text-xl font-bold text-white">{doctor.name}</h3>
+                <p className="text-sm text-white/80"><FaUser className="inline mr-2" /> {doctor.speciality}</p>
               </div>
-              {expandedDoctor === index ? <FaChevronUp /> : <FaChevronDown />}
+              <motion.div
+                animate={{ rotate: expandedDoctor === index ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <FaChevronDown className="text-white/80" />
+              </motion.div>
             </div>
             
-            <p className="text-sm text-gray-300 mb-2"><FaMapMarkerAlt className="inline mr-1" /> {doctor.location}</p>
-            <p className="text-sm text-gray-300 mb-4">{doctor.description}</p>
+            <p className="text-sm text-white/80 mb-2"><FaMapMarkerAlt className="inline mr-2" /> {doctor.location}</p>
+            <p className="text-sm text-white/80 mb-4">{doctor.description}</p>
 
             <AnimatePresence>
               {expandedDoctor === index && (
@@ -72,17 +77,20 @@ export default function TeleHealth() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="mt-2"
+                  className="mt-4 space-y-4"
                 >
                   <form className="space-y-4">
                     <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-100">Date</label>
-                      <input type="date" className="w-full p-3 rounded-lg border border-blue-400 bg-white/10 text-white" />
+                      <label className="block text-sm font-medium text-white/90">Date</label>
+                      <input 
+                        type="date" 
+                        className="w-full p-3 rounded-xl glass-button text-white" 
+                      />
                     </div>
                     
                     <div className="space-y-2">
-                      <label className="block text-sm font-medium text-gray-100">Time Slot</label>
-                      <select className="w-full p-3 rounded-lg border border-blue-400 bg-white/10 text-white">
+                      <label className="block text-sm font-medium text-white/90">Time Slot</label>
+                      <select className="w-full p-3 rounded-xl glass-button text-white">
                         <option>9:00 AM</option>
                         <option>10:00 AM</option>
                         <option>11:00 AM</option>
@@ -91,9 +99,14 @@ export default function TeleHealth() {
                       </select>
                     </div>
                     
-                    <button className="w-full bg-white text-blue-900 py-3 rounded-lg hover:bg-blue-50">
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full bg-white text-indigo-900 py-3 rounded-xl font-bold
+                        hover:bg-white/90 transition-all duration-300"
+                    >
                       Book Appointment
-                    </button>
+                    </motion.button>
                   </form>
                 </motion.div>
               )}

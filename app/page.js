@@ -1,49 +1,54 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { NavigationProvider, useNavigation } from './components/NavigationContext';
-import FeatureCard from './components/FeatureCard';
+import { FaVideo, FaChartLine, FaBrain } from 'react-icons/fa';
 import TeleHealth from './components/features/TeleHealth';
 import SelfAnalysis from './components/features/SelfAnalysis';
 import AlaynMind from './components/features/AlaynMind';
-import { FaVideo, FaChartLine, FaBrain, FaArrowLeft } from 'react-icons/fa';
+
+const menuOptions = [
+  {
+    id: 'telehealth',
+    title: 'Telehealth',
+    description: 'Connect with mental health professionals through video or text',
+    gradient: 'from-purple-500 to-blue-500',
+    icon: <FaVideo className="w-5 h-5 text-white/80" />
+  },
+  {
+    id: 'selfanalysis',
+    title: 'Self-Analysis',
+    description: 'Track your mood and mental well-being journey',
+    gradient: 'from-blue-500 to-purple-500',
+    icon: <FaChartLine className="w-5 h-5 text-white/80" />
+  },
+  {
+    id: 'alaynmind',
+    title: 'Alayn-Your-Mind',
+    description: 'AI-powered mental health companion',
+    gradient: 'from-purple-400 to-blue-400',
+    icon: <FaBrain className="w-5 h-5 text-white/80" />
+  }
+];
+
+function Button({ onClick, className = '', children }) {
+  return (
+    <motion.button
+      onClick={onClick}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      className={`w-full px-8 py-3 rounded-full text-white font-medium 
+        transition duration-200 ease-in-out
+        hover:brightness-110 active:brightness-90 ${className}`}
+    >
+      {children}
+    </motion.button>
+  );
+}
 
 function MainContent() {
   const { currentView, navigate } = useNavigation();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const features = [
-    {
-      id: 'telehealth',
-      title: "Telehealth Services",
-      description: "Connect with licensed therapists through secure video sessions.",
-      icon: <FaVideo className="w-5 h-5 text-white/80" />,
-      delay: 0.2
-    },
-    {
-      id: 'selfanalysis',
-      title: "Self Analysis",
-      description: "Track your mental well-being with AI-powered tools.",
-      icon: <FaChartLine className="w-5 h-5 text-white/80" />,
-      delay: 0.4
-    },
-    {
-      id: 'alaynmind',
-      title: "Alayn Your Mind",
-      description: "Discover curated resources for mental wellness.",
-      icon: <FaBrain className="w-5 h-5 text-white/80" />,
-      delay: 0.6
-    }
-  ];
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const renderContent = () => {
     switch (currentView) {
@@ -53,44 +58,70 @@ function MainContent() {
         return <SelfAnalysis />;
       case 'alaynmind':
         return <AlaynMind />;
+      case 'features':
+        return (
+          <motion.div
+            key="options-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="w-full max-w-4xl mx-auto p-4"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {menuOptions.map((option, index) => (
+                <motion.div
+                  key={option.id}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.15 }}
+                >
+                  <button
+                    onClick={() => navigate(option.id)}
+                    className={`w-full p-6 bg-gradient-to-r ${option.gradient} 
+                      rounded-xl text-left space-y-2 backdrop-blur-lg
+                      shadow-lg transition-colors duration-200
+                      hover:brightness-110 active:brightness-90`}
+                  >
+                    <div className="flex items-center gap-3">
+                      {option.icon}
+                      <h3 className="text-xl font-bold text-white">{option.title}</h3>
+                    </div>
+                    <p className="text-white/80 text-sm">{option.description}</p>
+                  </button>
+                </motion.div>
+              ))}
+            </div>
+            <motion.button
+              onClick={() => navigate('home')}
+              className="mt-8 text-white/60 hover:text-white flex items-center gap-2"
+              whileHover={{ x: -5 }}
+            >
+              ← Back to main menu
+            </motion.button>
+          </motion.div>
+        );
       default:
         return (
-          <div className="max-w-6xl mx-auto px-4">
-            {/* Header for the features section */}
-            <div className="flex justify-left mb-8 flex-col space-y-2">
-              <button 
-                onClick={() => navigate('home')} 
-                className="text-white hover:underline flex items-center"
-              >
-                <FaArrowLeft className="mr-2" /> Back
-              </button>
-              </div>
-              <h2 className="text-lg text-white font-bold">Choose your Service</h2>
-            
-            
-            <motion.div 
-              className="flex justify-center items-center"
-              style={{ minHeight: '70vh' }} // Ensures vertical centering
+          <div className="flex flex-col items-center justify-center min-h-screen p-4">
+            <motion.div
+              className="text-center space-y-6 w-full max-w-md"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              <motion.div 
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6 }}
-              >
-                {features.map((feature) => (
-                  <motion.div
-                    key={feature.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: feature.delay }}
-                    onClick={() => navigate(feature.id)}
-                    className="transform hover:scale-102 transition-transform duration-300"
-                  >
-                    <FeatureCard {...feature} />
-                  </motion.div>
-                ))}
-              </motion.div>
+              <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500">
+                Alayn
+              </h1>
+              <p className="text-gray-300 max-w-md mx-auto">
+                Your journey to mental wellness begins in this safe space
+              </p>
+              <div className="flex flex-col space-y-4 w-full">
+                <Button 
+                  onClick={() => navigate('features')}
+                  className="bg-gradient-to-r from-purple-500 to-blue-500"
+                >
+                  Start Your Journey
+                </Button>
+              </div>
             </motion.div>
           </div>
         );
@@ -98,25 +129,7 @@ function MainContent() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      <div 
-        className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-800"
-        style={{
-          backgroundSize: '400% 400%',
-          animation: 'gradient 15s ease infinite',
-        }}
-      />
-      
-      <div className="absolute inset-0 opacity-30">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.1) 0%, transparent 60%)`,
-            transition: 'background-position 0.3s ease',
-          }}
-        />
-      </div>
-
+    <div className="min-h-screen relative overflow-hidden bg-gray-900">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentView}
@@ -125,56 +138,9 @@ function MainContent() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {currentView === 'home' ? (
-            <div className="flex flex-col items-center justify-center min-h-screen p-4">
-              <motion.div
-                className="text-center space-y-4 sm:space-y-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-200 to-white animate-shine">
-                  Alayn
-                </h1>
-                <p className="text-sm sm:text-base md:text-lg text-gray-200 max-w-lg mx-auto">
-                  Your journey to mental wellness begins here
-                </p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-2.5 sm:px-8 sm:py-3 bg-white bg-opacity-10 backdrop-blur-sm text-white rounded-full text-sm sm:text-base font-semibold shadow-lg border border-white border-opacity-20 hover:bg-opacity-20 transition-all duration-300"
-                  onClick={() => navigate('features')}
-                >
-                  Get Started
-                </motion.button>
-              </motion.div>
-            </div>
-          ) : (
-            renderContent()
-          )}
+          {renderContent()}
         </motion.div>
       </AnimatePresence>
-
-      <style jsx global>{`
-        @keyframes gradient {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        @keyframes shine {
-          from { background-position: 200% center; }
-          to { background-position: -200% center; }
-        }
-
-        .animate-shine {
-          background-size: 200% auto;
-          animation: shine 6s linear infinite;
-          background-clip: text;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-      `}</style>
     </div>
   );
 }

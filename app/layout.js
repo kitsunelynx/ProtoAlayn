@@ -1,10 +1,10 @@
-import { Baskervville } from "next/font/google";
+import { Lato } from "next/font/google";
 import "./globals.css";
 
-const baskervville = Baskervville({ 
+const baskervville = Lato({ 
   weight: '400',
   subsets: ['latin'],
-  variable: '--font-baskervville',
+  variable: '--font-lato',
 });
 
 export const metadata = {
@@ -15,7 +15,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${baskervville.variable} font-serif`}>
+      <body className={`${baskervville.variable}`}>
         {children}
       </body>
     </html>

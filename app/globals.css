@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    font-family: var(--font-baskervville), serif;
+    font-family: var(--font-lato), serif;
   }
 }
 
@@ -45,4 +45,25 @@ body {
 
 .alayn-mind-bg {
   background: linear-gradient(135deg, #8B5CF6, #D946EF);
+}
+
+@layer components {
+  .card-gradient {
+    @apply bg-white/10 backdrop-blur-sm border border-white/20;
+  }
+  
+  .glass-button {
+    @apply bg-white/10 backdrop-blur-sm text-white rounded-xl
+    border border-white/20 hover:bg-white/20 transition-all duration-300;
+  }
+  
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+  }
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }

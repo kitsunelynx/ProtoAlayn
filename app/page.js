@@ -26,21 +26,21 @@ function MainContent() {
       id: 'telehealth',
       title: "Telehealth Services",
       description: "Connect with licensed therapists through secure video sessions.",
-      icon: <FaVideo className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />,
+      icon: <FaVideo className="w-6 h-6 text-white/80" />,
       delay: 0.2
     },
     {
       id: 'selfanalysis',
       title: "Self Analysis",
       description: "Track your mental well-being with AI-powered tools.",
-      icon: <FaChartLine className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />,
+      icon: <FaChartLine className="w-6 h-6 text-white/80" />,
       delay: 0.4
     },
     {
       id: 'alaynmind',
       title: "Alayn Your Mind",
       description: "Discover curated resources for mental wellness.",
-      icon: <FaBrain className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />,
+      icon: <FaBrain className="w-6 h-6 text-white/80" />,
       delay: 0.6
     }
   ];

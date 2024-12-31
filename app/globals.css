@@ -46,7 +46,10 @@ body {
 .alayn-mind-bg {
   background: linear-gradient(135deg, #8B5CF6, #D946EF);
 }
-
+.glass-panel {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
 @layer components {
   .card-gradient {
     @apply bg-white/10 backdrop-blur-sm border border-white/20;

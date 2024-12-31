@@ -2,7 +2,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { NavigationProvider, useNavigation } from './components/NavigationContext';
-import { FaVideo, FaChartLine, FaBrain, FaSmile, FaUserCircle } from 'react-icons/fa';
+import { FaVideo, FaBrain, FaSmile, FaUserCircle } from 'react-icons/fa';
 import TeleHealth from './components/features/TeleHealth';
 import SelfAnalysis from './components/features/SelfAnalysis';
 import AlaynMind from './components/features/AlaynMind';
@@ -32,8 +32,8 @@ const menuOptions = [
   },
   {
     id: 'personalityanalysis',
-    title: 'Personality Analysis',
-    description: 'Analyze your personality traits and tendencies',
+    title: 'Mental Wellness Assistant',
+    description: 'Your AI-powered companion for emotional support and self-reflection.',
     gradient: 'from-red-400 to-yellow-500',
     icon: <FaUserCircle className="w-5 h-5 text-white/80" />
   }

@@ -1,7 +1,7 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { FaArrowLeft, FaBook, FaNewspaper } from 'react-icons/fa';
+import { FaArrowLeft, FaBook, FaNewspaper, FaVideo } from 'react-icons/fa';
 import { useNavigation } from '../NavigationContext';
 
 export default function AlaynMind() {
@@ -18,6 +18,12 @@ export default function AlaynMind() {
     { title: "Understanding Anxiety in the Modern World", source: "Psychology Today" },
     { title: "Mindfulness Techniques for Daily Life", source: "Healthline" },
     { title: "The Science of Sleep and Mental Health", source: "Scientific American" }
+  ];
+
+  const videos = [
+    { title: "The Power of Vulnerability", link: "https://www.youtube.com/embed/iCvmsMzlF7o" },
+    { title: "How to Practice Mindfulness", link: "https://www.youtube.com/embed/ZToicYcHIOU" },
+    { title: "The Science of Happiness", link: "https://www.youtube.com/embed/e9dZQelULDk" }
   ];
 
   return (
@@ -61,6 +67,18 @@ export default function AlaynMind() {
           >
             <FaNewspaper className="text-lg" /> Articles
           </motion.button>
+          <motion.button
+            onClick={() => setActiveTab('videos')}
+            className={`flex-1 p-4 rounded-xl flex items-center justify-center gap-3 ${
+              activeTab === 'videos' 
+                ? 'bg-white text-indigo-900 shadow-lg font-bold' 
+                : 'glass-button'
+            }`}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <FaVideo className="text-lg" /> Videos
+          </motion.button>
         </div>
 
         <motion.div
@@ -83,7 +101,7 @@ export default function AlaynMind() {
                   <p className="text-white/80">by {book.author}</p>
                 </motion.div>
               ))
-            ) : (
+            ) : activeTab === 'articles' ? (
               articles.map((article, index) => (
                 <motion.div
                   key={article.title}
@@ -96,6 +114,29 @@ export default function AlaynMind() {
                 >
                   <h3 className="text-xl font-bold text-white mb-2">{article.title}</h3>
                   <p className="text-white/80">Source: {article.source}</p>
+                </motion.div>
+              ))
+            ) : (
+              videos.map((video, index) => (
+                <motion.div
+                  key={video.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="card-gradient p-6 rounded-xl"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <h3 className="text-xl font-bold text-white mb-2">{video.title}</h3>
+                  <div className="aspect-w-16 aspect-h-9">
+                    <iframe
+                      src={video.link}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full rounded-lg"
+                    ></iframe>
+                  </div>
                 </motion.div>
               ))
             )}

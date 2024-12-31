@@ -4,7 +4,7 @@ import { FaArrowLeft, FaPaperPlane, FaTrash } from 'react-icons/fa';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Initialize Gemini AI
-const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI("AIzaSyCrHaRmm6yWLhL80vYqkvNpRZIj651YHjk");
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
 
 export default function SelfAnalysis() {

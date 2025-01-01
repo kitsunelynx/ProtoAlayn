@@ -32,9 +32,9 @@ export default function SelfAnalysis() {
 
   const analyzeMessage = async (userMessage) => {
     try {
-      const prompt = `<system>You are Athena. As a mental wellness assistant, provide a thoughtful and empathetic response to: <user>"${userMessage}</user>". 
+      const prompt = `<system>You are Athena. As a mental wellness assistant, provide a thoughtful and empathetic response to the user". 
                      Focus on understanding emotions, offering support, and encouraging self-reflection. 
-                     Keep the response concise and conversational. Avoid clinical terminology. Dont assist with anything else. </system>`;
+                     Keep the response concise and conversational. Avoid clinical terminology. Dont assist with anything else. </system>: <user>"${userMessage}</user>`;
       
       const result = await model.generateContent(prompt);
       return result.response.text();
